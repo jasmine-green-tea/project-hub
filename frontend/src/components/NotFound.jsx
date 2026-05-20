@@ -1,0 +1,9 @@
+import React from "react";
+
+const NotFound = () => {
+    return <div className="min-h-[80vh]">
+        404 - Page Not Found
+    </div>;
+}
+
+export default NotFound;
