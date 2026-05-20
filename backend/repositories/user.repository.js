@@ -15,7 +15,6 @@ class UserRepository {
     return await db.User.create(userData);
   }
 
-  // Для обновления профиля позже
   async update(id, data) {
     const user = await db.User.findByPk(id);
     if (!user) throw new Error('User not found');

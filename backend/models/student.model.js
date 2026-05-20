@@ -9,9 +9,14 @@ export default (sequelize) => {
       references: { model: 'users', key: 'id' },
       onDelete: 'CASCADE',
     },
-    direction_id: { type: DataTypes.INTEGER, allowNull: true },
-    admission_year: { type: DataTypes.INTEGER, allowNull: true },
-    education_form: { type: DataTypes.INTEGER, allowNull: true },
+    direction_id: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    admission_year: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
   }, { tableName: 'students', timestamps: false, underscored: true });
 
   Student.associate = (models) => {

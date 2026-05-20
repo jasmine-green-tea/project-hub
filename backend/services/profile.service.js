@@ -23,17 +23,16 @@ class ProfileService {
             if (user.role === 'student') {
                 let student = await StudentRepository.findByUserId(userId);
                 if (student) {
-                    // Если student — Sequelize-модель, вызываем toJSON(), иначе берём как есть
                     const studentData = student.toJSON ? student.toJSON() : student;
                     profile.direction_id = studentData.direction_id;
                     profile.admission_year = studentData.admission_year;
-                    profile.education_form = studentData.education_form;
-                    // Если в student есть вложенные direction и institute, можно добавить
+
                     if (studentData.direction) {
                         profile.direction = studentData.direction;
-                        if (studentData.direction.institute) {
-                            profile.institute = studentData.direction.institute;
-                        }
+                        // profile.education_form = studentData.direction.education_form;
+                        // if (studentData.direction.institute) {
+                        //     profile.institute = studentData.direction.institute;
+                        // }
                     }
                 }
             } else if (user.role === 'teacher') {
@@ -71,7 +70,8 @@ class ProfileService {
             const studentUpdate = {};
             if (updateData.direction_id !== undefined) studentUpdate.direction_id = updateData.direction_id;
             if (updateData.admission_year !== undefined) studentUpdate.admission_year = updateData.admission_year;
-            if (updateData.program_duration !== undefined) studentUpdate.education_form = updateData.program_duration; // поле в БД education_form
+            console.log('ProfileService.updateProfile studentUpdate: ', studentUpdate);
+            console.log('ProfileService.updateProfile updateData: ', updateData);
             if (Object.keys(studentUpdate).length) {
                 await StudentRepository.update(userId, studentUpdate);
             }

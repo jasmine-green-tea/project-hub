@@ -29,6 +29,12 @@ class StudentRepository {
     }
   }
 
+  async update(userId, data) {
+    const student = await db.Student.findOne({ where: { user_id: userId } });
+    if (!student) throw new Error('Student record not found');
+    return await student.update(data);
+  }
+
 }
 
 export default new StudentRepository();
