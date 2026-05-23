@@ -19,7 +19,7 @@ class ProfileService {
                 created_at: user.created_at,
             };
 
-            // Получаем данные студента или преподавателя (если есть)
+            // Получаем данные студента или преподавателя
             if (user.role === 'student') {
                 let student = await StudentRepository.findByUserId(userId);
                 if (student) {
@@ -28,7 +28,9 @@ class ProfileService {
                     profile.admission_year = studentData.admission_year;
 
                     if (studentData.direction) {
-                        profile.direction = studentData.direction;
+                        profile.direction_name = studentData.direction_full_name;
+                        profile.institute_id = studentData.direction.institute?.id;
+                        profile.institute_name = studentData.direction.institute?.full_name;
                         // profile.education_form = studentData.direction.education_form;
                         // if (studentData.direction.institute) {
                         //     profile.institute = studentData.direction.institute;
@@ -41,10 +43,12 @@ class ProfileService {
                     const teacherData = teacher.toJSON ? teacher.toJSON() : teacher;
                     profile.department_id = teacherData.department_id;
                     if (teacherData.department) {
-                        profile.department = teacherData.department;
-                        if (teacherData.department.institute) {
-                            profile.institute = teacherData.department.institute;
-                        }
+                        profile.department_name = teacherData.department.full_name;
+                        profile.institute_id = teacherData.department.institute?.id;
+                        profile.institute_name = teacherData.department.institute?.full_name;
+                        // if (teacherData.department.institute) {
+                        //     profile.institute = teacherData.department.institute;
+                        // }
                     }
                 }
             }
@@ -70,8 +74,6 @@ class ProfileService {
             const studentUpdate = {};
             if (updateData.direction_id !== undefined) studentUpdate.direction_id = updateData.direction_id;
             if (updateData.admission_year !== undefined) studentUpdate.admission_year = updateData.admission_year;
-            console.log('ProfileService.updateProfile studentUpdate: ', studentUpdate);
-            console.log('ProfileService.updateProfile updateData: ', updateData);
             if (Object.keys(studentUpdate).length) {
                 await StudentRepository.update(userId, studentUpdate);
             }

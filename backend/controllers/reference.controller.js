@@ -28,7 +28,6 @@ class ReferenceController {
   }
 
   async getDepartments(req, res, next) {
-    console.log('=== getDepartments called ===');
     try {
       const { instituteId } = req.query;
       let departments;
