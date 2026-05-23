@@ -20,6 +20,16 @@ class UserRepository {
     if (!user) throw new Error('User not found');
     return await user.update(data);
   }
+
+  async updateAvatar(userId, avatarPath) {
+    const user = await db.User.findByPk(userId);
+    if (!user) throw new Error('User not found');
+    try {
+      return await user.update({ avatar_path: avatarPath });
+    } catch(err) {
+      console.log('UserRepository.updateAvatar user.update err = ', err);
+    }
+  }
 }
 
 export default new UserRepository();

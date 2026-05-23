@@ -17,7 +17,7 @@ const Input = forwardRef(({
                         placeholder:text-slate-400
                         transition-colors duration-200
                         focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-600
-                        disabled:bg-white disabled:border-slate-200 disabled:placeholder-slate-300 disabled:cursor-not-allowed
+                        disabled:bg-white disabled:text-slate-400 disabled:border-slate-200 disabled:placeholder-slate-300 disabled:cursor-not-allowed
                         `;
 
     const borderColor = error
