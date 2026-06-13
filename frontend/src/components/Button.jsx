@@ -29,7 +29,7 @@ const Button = ({
 }) => {
     // Базовые стили для всех кнопок
     const baseClasses =
-            'inline-flex items-center justify-center rounded-lg test-base font-semibold transition-colors duration-200 focus:outline-none';
+            'inline-flex items-center justify-center rounded-lg text-base font-semibold transition-colors duration-200 focus:outline-none';
 
     // Варианты цвета
     const variants = {

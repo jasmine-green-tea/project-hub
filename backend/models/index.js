@@ -5,6 +5,8 @@ import defineTeacher from './teacher.model.js';
 import defineInstitute from './institute.model.js'
 import defineDirection from './direction.model.js'
 import defineDepartment from './department.model.js'
+import defineProject from './project.model.js'
+import defineProjectMember from './projectMember.model.js'
 
 const db = {};
 db.sequelize = sequelize;
@@ -17,6 +19,9 @@ db.Teacher = defineTeacher(sequelize);
 db.Institute = defineInstitute(sequelize);
 db.Direction = defineDirection(sequelize);
 db.Department = defineDepartment(sequelize);
+// Проект
+db.Project = defineProject(sequelize);
+db.ProjectMember = defineProjectMember(sequelize);
 
 /// Вызываем ассоциации для каждой модели
 Object.keys(db).forEach((modelName) => {

@@ -9,6 +9,8 @@ const Input = forwardRef(({
     disabled = false,
     className = '',
     type ='text',
+    multiline = false,
+    rows = 3,
     ...props
 }, ref) => {
     // Базовые классы для поля
@@ -35,6 +37,8 @@ const Input = forwardRef(({
         'py-2',      // 8px вертикальные отступы
     );
 
+    const Component = multiline ? 'textarea' : 'input';
+
     return (
         <div className={clsx('w-full', className)}>
             {label && (
@@ -43,19 +47,23 @@ const Input = forwardRef(({
                 </label>
             )}
             <div className="relative">
-                {iconLeft && (
+                {iconLeft && !multiline && (
                     <div className='absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none'>
                         {iconLeft}
                     </div>
                 )}
-                <input
+                <Component
                     ref={ref}
-                    type={type}
+                    type={multiline ? undefined : type}
                     disabled={disabled}
-                    className={inputClasses}
+                    rows={multiline ? rows : undefined}
+                    className={clsx(
+                        inputClasses,
+                        multiline && 'resize-y'
+                    )}
                     {...props}
                 />
-                {iconRight && (
+                {iconRight && !multiline && (
                     <div className='absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none'>
                         {iconRight}
                     </div>
