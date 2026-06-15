@@ -37,6 +37,7 @@ const Select = forwardRef(({
             paddingLeft,
             paddingRight,
             'py-2',
+            selectTextColor
         );
 
     return (

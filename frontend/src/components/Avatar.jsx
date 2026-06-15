@@ -28,6 +28,12 @@ const Avatar = ({
         );
     }
 
+    const getTextSize = () => {
+        if (size === 'h-6 w-6') return 'text-[10px]';
+        if (size === 'h-8 w-8') return 'text-xs';
+        return 'text-sm';
+    };
+
     // Если есть имя,показываем инициалы
      if (name && name.trim()) {
             const initials = name
@@ -37,7 +43,7 @@ const Avatar = ({
                 .join('');
             return (
                 <div
-                     className={`${size} rounded-full bg-blue-100 text-blue-800 flex items-center justify-center font-semibold text-sm border border-gray-200`}
+                     className={`${size} rounded-full bg-slate-600 text-white flex items-center justify-center font-semibold ${getTextSize()} leading-none border border-slate-200`}
                 >
                     {initials}
                 </div>

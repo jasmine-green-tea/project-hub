@@ -8,6 +8,7 @@ import Register from "./pages/Register";
 import NotFound from "./components/NotFound";
 import Profile from './pages/Profile';
 import Dashboard from './pages/Dashboard';
+import ProjectPage from './pages/Project';
 
 function App() {
   const { user, loading, logoutUser } = useAuth();
@@ -35,6 +36,7 @@ function App() {
         <Route path="/register" element={user ? <Navigate to="/" /> : <Register />} />
         <Route path="/profile" element={user ? <Profile /> : <Navigate to="/login" />} />
         <Route path="/dashboard" element={user ? <Dashboard /> : <Navigate to="/login" />} />
+        <Route path="/projects/:id" element={user ? <ProjectPage /> : <Navigate to="/login" />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>

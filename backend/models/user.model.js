@@ -43,5 +43,14 @@ export default (sequelize) => {
             field: 'created_at',
         },
     }, { tableName: 'users', timestamps: false, underscored: true });
+
+    User.associate = (models) => {
+        User.belongsToMany(models.Project, {
+            through: models.ProjectMember,
+            foreignKey: 'user_id',
+            otherKey: 'project_id',
+            as: 'projects',
+        });
+    }
     return User;
 };

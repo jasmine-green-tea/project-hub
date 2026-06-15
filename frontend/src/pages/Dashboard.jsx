@@ -26,7 +26,7 @@ const Dashboard = () => {
     if (loading) return <div className="text-center p-8">Загрузка...</div>;
 
     return (
-        <div className="container mx-auto pt-12">
+        <div className="container max-w-7xl mx-auto pt-12">
             <h1 className="text-4xl font-semibold mb-6">Мои проекты</h1>
             {projects.length === 0 ? (
                 <p className="text-gray-500">У вас пока нет проектов.</p>

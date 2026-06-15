@@ -7,6 +7,7 @@ import userRoutes from './routes/user.routes.js';
 import referenceRoutes from './routes/reference.routes.js';
 import avatarRoutes from './routes/avatar.routes.js';
 import projectRoutes from './routes/project.routes.js';
+import sprintRoutes from './routes/sprint.routes.js';
 import db from './models/index.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -33,6 +34,7 @@ app.use("/api/users", avatarRoutes);
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use('/api/projects', projectRoutes);
+app.use('/api', sprintRoutes);
 
 // Проверка подключения к БД
 db.sequelize.authenticate()

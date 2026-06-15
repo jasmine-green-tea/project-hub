@@ -6,6 +6,7 @@ import Select from './Select';
 import Button from './Button';
 import { createProject } from '../services/projectService';
 import { getInstitutes, getDirections } from '../services/referenceService';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 
 const createProjectModal = ({ isOpen, onClose, onProjectCreated }) => {
     const [formData, setFormData] = useState({
@@ -94,13 +95,24 @@ const createProjectModal = ({ isOpen, onClose, onProjectCreated }) => {
                             leaveFrom='opacity-100 scale-100'
                             leaveTo='opacity-0 scale-95'
                         >
-                            <Dialog.Panel className='w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 shadow-xl transition-all'>
-                                <Dialog.Title as='h3' className='text-lg font-semibold mb-4'>
-                                    Новый проект
-                                </Dialog.Title>
+                            <Dialog.Panel className='w-full max-w-xl transform overflow-hidden rounded-lg bg-white p-6 shadow-xl transition-all'>
+                                <div className='flex justify-between items-center'>
+                                    <Dialog.Title as='h3' className='text-2xl font-semibold text-slate-900'>
+                                        Новый проект
+                                    </Dialog.Title>
+                                    <Button
+                                        onClick={onClose}
+                                        isIconOnly
+                                        variant='tertiary'
+                                        icon={<XMarkIcon className='h-6 w-6'/>}
+                                    />
+                                </div>
+                                <p className='text-base text-gray-600 mb-4'>
+                                    Заполните информацию о проекте
+                                </p>
                                 <form onSubmit={handleSubmit} className='space-y-4'>
                                     <Input
-                                        label='Название проекта'
+                                        label='Название проекта*'
                                         name='name'
                                         value={formData.name}
                                         onChange={handleChange}
@@ -109,7 +121,7 @@ const createProjectModal = ({ isOpen, onClose, onProjectCreated }) => {
                                     />
                                     <div className='grid grid-cols-3 gap-3'>
                                         <Select
-                                            label='Семестр'
+                                            label='Семестр*'
                                             name='semester'
                                             options={[
                                                 { value: 'autumn', label: 'Осень' },
@@ -117,11 +129,11 @@ const createProjectModal = ({ isOpen, onClose, onProjectCreated }) => {
                                             ]}
                                             value={formData.semester}
                                             onChange={handleChange}
-                                            placeholder='Выберите семестр'
+                                            placeholder='Весна/осень'
                                             required
                                         />
                                         <Input
-                                            label='Год'
+                                            label='Год*'
                                             name='year'
                                             type='number'
                                             value={formData.year}
@@ -130,9 +142,11 @@ const createProjectModal = ({ isOpen, onClose, onProjectCreated }) => {
                                             required
                                         />
                                         <Input
-                                            label='Курс'
+                                            label='Курс*'
                                             name='course'
                                             type='number'
+                                            min="1"
+                                            max="6"
                                             value={formData.course}
                                             onChange={handleChange}
                                             placeholder='Например, 3'
@@ -141,7 +155,7 @@ const createProjectModal = ({ isOpen, onClose, onProjectCreated }) => {
                                     </div>
                                     <div className='grid grid-cols-2 gap-3'>
                                         <Select
-                                            label='Институт'
+                                            label='Институт*'
                                             name='institute_id'
                                             options={institutes.map(i => ({ value: i.id, label: i.full_name }))}
                                             value={formData.institute_id}
@@ -150,7 +164,7 @@ const createProjectModal = ({ isOpen, onClose, onProjectCreated }) => {
                                             required
                                         />
                                         <Select
-                                            label='Направление'
+                                            label='Направление*'
                                             name='direction_id'
                                             options={directions.map(d => ({ value: d.id, label: d.full_name }))}
                                             value={formData.direction_id}
@@ -170,11 +184,11 @@ const createProjectModal = ({ isOpen, onClose, onProjectCreated }) => {
                                         placeholder='Опишите будущий проект'
                                     />
                                     {error && <p className="text-red-500 text-sm">{error}</p>}
-                                    <div className="flex justify-end gap-3 mt-4">
-                                        <Button variant="secondary" onClick={onClose} type="button">
+                                    <div className="flex gap-3 mt-4">
+                                        <Button variant="secondary" onClick={onClose} type="button" className="flex-1">
                                             Отмена
                                         </Button>
-                                        <Button type="submit" disabled={loading}>
+                                        <Button type="submit" disabled={loading} className="flex-1">
                                             {loading ? 'Создание...' : 'Создать'}
                                         </Button>
                                     </div>

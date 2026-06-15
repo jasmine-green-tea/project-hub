@@ -29,10 +29,19 @@ class ProjectRepository {
             include: [
                 { model: db.Institute, as: 'institute' },
                 { model: db.Direction, as: 'direction' },
-                { model: db.User, as: 'creator' },
-                { model: db.User, as: 'members' },
+                { model: db.User, as: 'creator', attributes: ['id', 'name', 'surname'] },
+                { model: db.User,
+                    as: 'members',
+                    attributes: ['id', 'name', 'surname', 'email', 'avatar_path', 'role']
+                },
             ],
         });
+    }
+
+    async update(id, data) {
+        const project = await db.Project.findByPk(id);
+        if (!project) throw new Error('Project not found');
+        return await project.update(data);
     }
 }
 

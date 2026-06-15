@@ -7,6 +7,7 @@ import defineDirection from './direction.model.js'
 import defineDepartment from './department.model.js'
 import defineProject from './project.model.js'
 import defineProjectMember from './projectMember.model.js'
+import defineSprint from './sprint.model.js';
 
 const db = {};
 db.sequelize = sequelize;
@@ -22,6 +23,8 @@ db.Department = defineDepartment(sequelize);
 // Проект
 db.Project = defineProject(sequelize);
 db.ProjectMember = defineProjectMember(sequelize);
+// Спринты
+db.Sprint = defineSprint(sequelize);
 
 /// Вызываем ассоциации для каждой модели
 Object.keys(db).forEach((modelName) => {

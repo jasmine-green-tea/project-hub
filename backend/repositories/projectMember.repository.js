@@ -13,6 +13,11 @@ class ProjectMemberRepository {
         const member = await db.ProjectMember.findOne({ where: { project_id: projectId, user_id: userId } });
         return !!member;
     }
+
+    async addMembers(projectId, userIds) {
+        const members = userIds.map(userId => ({ project_id: projectId, user_id: userId }));
+        return await db.ProjectMember.bulkCreate(members, { ignoreDuplicates: true });
+    }
 }
 
 export default new ProjectMemberRepository();

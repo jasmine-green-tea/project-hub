@@ -29,7 +29,7 @@ const Button = ({
 }) => {
     // Базовые стили для всех кнопок
     const baseClasses =
-            'inline-flex items-center justify-center rounded-lg text-base font-semibold transition-colors duration-200 focus:outline-none';
+            'inline-flex items-center justify-center rounded-lg text-base font-semibold transition-colors duration-200 focus:outline-none cursor-pointer';
 
     // Варианты цвета
     const variants = {
@@ -46,25 +46,23 @@ const Button = ({
             disabled: 'disabled:bg-white disabled:ring-slate-300 disabled:text-slate-300 disabled:cursor-not-allowed',
         },
         tertiary: {
-            default: 'bg-transparent text-slate-900 leading-1',
+            default: 'bg-transparent leading-1',
             hover: 'hover:text-blue-600',
             active: 'active:text-blue-700',
             disabled: 'disabled:text-slate-300 disabled:cursor-not-allowed',
         },
     };
 
-    const sizeClasses = isIconOnly
-        ? 'px-3 py-2' // отступы для кнопки только с иконкой
-        : 'px-4 py-2' // стандартные отступы
+    const sizeClasses = isIconOnly ? 'p-0' : 'px-4 py-2'
 
     const variantClasses = variants[variant];
     const classes = clsx(
         baseClasses,
-        sizeClasses,
         variantClasses.default,
         variantClasses.hover,
         variantClasses.active,
         variantClasses.disabled,
+        sizeClasses,
         className
     );
 
@@ -76,10 +74,10 @@ const Button = ({
             className={classes}
             {...props}
         >
-            {iconLeft && <span className='mr-2'>{iconLeft}</span>}
+            {!isIconOnly && iconLeft && <span className='mr-2'>{iconLeft}</span>}
             {!isIconOnly && children}
             {isIconOnly && icon && <span>{icon}</span>}
-            {iconRight && <span className='ml-2'>{iconRight}</span>}
+            {!isIconOnly && iconRight && <span className='ml-2'>{iconRight}</span>}
         </button>
     );
 };
